@@ -1,0 +1,232 @@
+{% extends "core/base.html" %}
+
+{% block title %}Jalpaiguri Cafe · Kadamtala{% endblock %}
+
+{% block content %}
+  <section
+    class="hero-gradient relative overflow-hidden rounded-3xl border border-white/10 px-6 py-10 shadow-2xl shadow-emerald-500/10 md:flex md:items-stretch md:px-10 md:py-12"
+  >
+    <div class="relative z-10 flex-1">
+      <p
+        class="inline-flex items-center gap-1 rounded-full border border-emerald-400/40 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-300"
+      >
+        <span class="text-xs">●</span> Live open kitchen · Table-aware ordering
+      </p>
+      <h1
+        class="mt-4 max-w-xl text-3xl font-semibold tracking-tight text-slate-50 md:text-4xl"
+      >
+        Jalpaiguri Cafe · Kadamtala, Jalpaiguri
+      </h1>
+      <p class="mt-3 max-w-lg text-sm text-slate-300 md:text-base">
+        At <span class="font-semibold">Jalpaiguri Cafe</span> in Kadamtala,
+        guests scan a QR on the table, explore our North Bengal inspired menu,
+        and watch their dishes move from <span class="font-semibold">Received</span>
+        → <span class="font-semibold">Preparing</span>
+        → <span class="font-semibold">Ready</span> in real-time.
+      </p>
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <a
+          href="/menu/"
+          class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/40 hover:bg-emerald-400"
+        >
+          Explore live menu
+        </a>
+        <a
+          href="/order/?table=1"
+          class="inline-flex items-center justify-center rounded-full border border-slate-600/70 bg-slate-900/60 px-4 py-2 text-sm font-medium text-slate-100 hover:border-emerald-400/70"
+        >
+          Simulate QR scan
+        </a>
+      </div>
+      <dl class="mt-8 grid max-w-xl grid-cols-3 gap-4 text-xs text-slate-300">
+        <div>
+          <dt class="text-slate-400">Avg. prep time</dt>
+          <dd class="mt-1 text-sm font-semibold text-emerald-300">12 min</dd>
+        </div>
+        <div>
+          <dt class="text-slate-400">Live tables</dt>
+          <dd class="mt-1 text-sm font-semibold">Kadamtala · Jalpaiguri</dd>
+        </div>
+        <div>
+          <dt class="text-slate-400">Realtime events</dt>
+          <dd class="mt-1 text-sm font-semibold">WebSockets + Redis</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div
+      class="relative mt-8 flex-1 md:mt-0 md:pl-10 lg:pl-16 xl:pl-20"
+    >
+      <div
+        class="glass-card relative mx-auto max-w-sm border border-emerald-400/20 p-4 shadow-xl"
+      >
+        <div class="flex items-center justify-between text-xs text-slate-400">
+          <span>Table 7 · Terrace</span>
+          <span class="inline-flex items-center gap-1 text-emerald-300">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            Live
+          </span>
+        </div>
+        <div class="mt-4 space-y-3 text-xs">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-slate-100">Truffle Mushroom Risotto</p>
+              <p class="text-slate-400">2 × 520</p>
+            </div>
+            <span class="rounded-full bg-amber-400/10 px-2 py-0.5 text-amber-300"
+              >Preparing</span
+            >
+          </div>
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-slate-100">Korean Fire Wings</p>
+              <p class="text-slate-400">1 × 390</p>
+            </div>
+            <span class="rounded-full bg-emerald-400/10 px-2 py-0.5 text-emerald-300"
+              >Ready</span
+            >
+          </div>
+          <div class="flex items-center justify-between border-t border-white/5 pt-3">
+            <p class="text-slate-400">Running total</p>
+            <p class="text-sm font-semibold text-slate-50">₹ 1,430</p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-emerald-500/20 blur-3xl"
+      ></div>
+      <img
+        src="https://images.pexels.com/photos/7245462/pexels-photo-7245462.jpeg?auto=compress&cs=tinysrgb&w=800"
+        alt="Open kitchen"
+        class="mt-6 hidden h-40 w-full rounded-2xl object-cover object-center ring-1 ring-white/10 md:block"
+      />
+    </div>
+  </section>
+
+  <section class="mt-10 grid gap-6 md:grid-cols-3">
+    <div class="glass-card p-5">
+      <h2 class="text-sm font-semibold text-slate-50">QR table ordering</h2>
+      <p class="mt-2 text-xs text-slate-300">
+        Each table has a unique QR code like
+        <span class="font-mono text-[11px] text-emerald-300">
+          /order?table=5
+        </span>
+        · no manual table assignment.
+      </p>
+    </div>
+    <div class="glass-card p-5">
+      <h2 class="text-sm font-semibold text-slate-50">Kitchen Display</h2>
+      <p class="mt-2 text-xs text-slate-300">
+        Orders hit the KDS over WebSockets in real-time with clear
+        <span class="font-semibold">Received → Preparing → Ready</span>
+        stages.
+      </p>
+    </div>
+    <div class="glass-card p-5">
+      <h2 class="text-sm font-semibold text-slate-50">Location &amp; hours</h2>
+      <p class="mt-2 text-xs text-slate-300">
+        Find us at <span class="font-semibold">Kadamtala, Jalpaiguri</span>.
+        Open every day from <span class="font-semibold">11:00 AM – 10:30 PM</span>.
+        Perfect for evening adda, coffee, and family dinners.
+      </p>
+    </div>
+  </section>
+
+  <section class="mt-10">
+  <div class="flex items-center justify-between gap-3">
+    <h2 class="text-sm font-semibold text-slate-50">Featured dishes</h2>
+    <a href="/menu/" class="text-xs font-medium text-emerald-300 hover:text-emerald-200">
+    View full menu →
+    </a>
+  </div>
+  <div class="mt-4 grid gap-4 md:grid-cols-3">
+    {% for item in featured_items %}
+    <article class="glass-card p-4 text-xs text-slate-300">
+      <h3 class="text-sm font-semibold text-slate-50">{{ item.name }}</h3>
+      <p class="mt-1 text-[11px] uppercase tracking-wide text-emerald-300">
+      {{ item.category.name }}
+      </p>
+      {% if item.description %}
+      <p class="mt-2 line-clamp-3 text-[11px]">{{ item.description }}</p>
+      {% endif %}
+      <p class="mt-3 text-sm font-semibold text-slate-50">₹ {{ item.price }}</p>
+    </article>
+    {% empty %}
+    <p class="text-xs text-slate-400">
+      Our menu is coming soon. Check back shortly!
+    </p>
+    {% endfor %}
+  </div>
+  </section>
+
+  <section class="mt-10 grid gap-6 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
+    <article class="glass-card p-5">
+      <h2 class="text-sm font-semibold text-slate-50">About Jalpaiguri Cafe</h2>
+      <p class="mt-2 text-xs text-slate-300">
+        Jalpaiguri Cafe blends the warmth of North Bengal hospitality with a
+        modern, open-kitchen experience. From smoky tandoor platters to
+        handcrafted coffee, every plate is tracked in real-time from kitchen to
+        table.
+      </p>
+      <p class="mt-2 text-xs text-slate-300">
+        We are located in the heart of <span class="font-semibold">Kadamtala</span>,
+        making it easy to drop in for a quick bite, a work session, or a long
+        adda with friends.
+      </p>
+    </article>
+    <aside class="glass-card p-5 text-xs text-slate-300">
+      <h2 class="text-sm font-semibold text-slate-50">Visit &amp; contact</h2>
+      <p class="mt-2">
+        <span class="font-semibold">Address:</span><br />
+        Jalpaiguri Cafe,<br />
+        Kadamtala, Jalpaiguri, West Bengal
+      </p>
+      <p class="mt-2">
+        <span class="font-semibold">Phone:</span> +91-XXXXXXXXXX<br />
+        <span class="font-semibold">Email:</span> hello@jalpaiguricafe.in
+      </p>
+      <p class="mt-2 text-[11px] text-slate-500">
+        (Embed Google Maps or a location map here during deployment.)
+      </p>
+    </aside>
+  </section>
+
+  <section class="mt-10 grid gap-6 md:grid-cols-4">
+  <div class="glass-card p-4 text-xs text-slate-300">
+    <h3 class="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+    Categories
+    </h3>
+    <p class="mt-2 text-2xl font-semibold text-slate-50">
+    {{ stats.category_count|default:0 }}
+    </p>
+    <p class="mt-1 text-[11px] text-slate-400">Distinct sections on our menu.</p>
+  </div>
+  <div class="glass-card p-4 text-xs text-slate-300">
+    <h3 class="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+    Menu items
+    </h3>
+    <p class="mt-2 text-2xl font-semibold text-slate-50">
+    {{ stats.menu_item_count|default:0 }}
+    </p>
+    <p class="mt-1 text-[11px] text-slate-400">Currently available dishes &amp; drinks.</p>
+  </div>
+  <div class="glass-card p-4 text-xs text-slate-300">
+    <h3 class="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+    Active tables
+    </h3>
+    <p class="mt-2 text-2xl font-semibold text-slate-50">
+    {{ stats.active_tables|default:0 }}
+    </p>
+    <p class="mt-1 text-[11px] text-slate-400">Tables with an ongoing session.</p>
+  </div>
+  <div class="glass-card p-4 text-xs text-slate-300">
+    <h3 class="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+    Open orders
+    </h3>
+    <p class="mt-2 text-2xl font-semibold text-slate-50">
+    {{ stats.open_orders|default:0 }}
+    </p>
+    <p class="mt-1 text-[11px] text-slate-400">Live orders moving through the kitchen.</p>
+  </div>
+  </section>
+{% endblock %}

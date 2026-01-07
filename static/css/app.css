@@ -1,0 +1,12 @@
+/* Custom tweaks on top of Tailwind */
+.hero-gradient {
+  background: radial-gradient(circle at top left, #22c55e33 0, transparent 55%),
+    radial-gradient(circle at bottom right, #38bdf833 0, transparent 55%),
+    #020617;
+}
+.glass-card {
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: 1.25rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  backdrop-filter: blur(18px);
+}

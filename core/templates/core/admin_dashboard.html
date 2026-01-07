@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Dashboard</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #0f172a;
+        color: #e5e7eb;
+      }
+      header {
+        background: #111827;
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #1f2937;
+      }
+      .brand {
+        font-weight: 600;
+        font-size: 1.25rem;
+      }
+      .container {
+        padding: 1.5rem 2rem 3rem;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      .card {
+        background: #020617;
+        border-radius: 0.75rem;
+        padding: 1rem 1.25rem;
+        border: 1px solid #1f2937;
+      }
+      .card h2 {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #9ca3af;
+        margin: 0 0 0.5rem;
+      }
+      .stat {
+        font-size: 1.4rem;
+        font-weight: 600;
+      }
+      .section-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 1.5rem 0 0.75rem;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+      }
+      th,
+      td {
+        padding: 0.5rem 0.6rem;
+        text-align: left;
+        border-bottom: 1px solid #1f2937;
+      }
+      th {
+        color: #9ca3af;
+        font-weight: 500;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.1rem 0.45rem;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .badge-active {
+        background: rgba(34, 197, 94, 0.15);
+        color: #22c55e;
+      }
+      .badge-pending {
+        background: rgba(234, 179, 8, 0.15);
+        color: #eab308;
+      }
+      .badge-warn {
+        background: rgba(248, 113, 113, 0.15);
+        color: #f97316;
+      }
+      .muted {
+        color: #9ca3af;
+        font-size: 0.8rem;
+      }
+      a {
+        color: #38bdf8;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+      .pill {
+        padding: 0.2rem 0.6rem;
+        border-radius: 999px;
+        background: #020617;
+        border: 1px solid #1f2937;
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">Smart Restaurant · Admin</div>
+      <div class="muted">Logged in as {{ request.user.username }}</div>
+    </header>
+    <main class="container">
+      <div class="grid">
+        <section class="card">
+          <h2>Total Revenue</h2>
+          <div class="stat">₹ {{ total_revenue|default:0 }}</div>
+          <div class="muted">All-time closed & served orders</div>
+        </section>
+        <section class="card">
+          <h2>Today's Revenue</h2>
+          <div class="stat">₹ {{ daily_revenue|default:0 }}</div>
+          <div class="muted">Based on order creation date</div>
+        </section>
+        <section class="card">
+          <h2>Table Status</h2>
+          <div class="pill-row">
+            {% for row in table_stats %}
+            <span class="pill">
+              {{ row.status|title }} · {{ row.count }}
+            </span>
+            {% empty %}
+            <span class="muted">No tables configured yet.</span>
+            {% endfor %}
+          </div>
+        </section>
+        <section class="card">
+          <h2>Popular Dishes</h2>
+          <ul class="muted">
+            {% for dish in popular_dishes %}
+            <li>
+              {{ dish.name }} · {{ dish.times_ordered }} orders
+            </li>
+            {% empty %}
+            <li>No data yet. Wait for some orders.</li>
+            {% endfor %}
+          </ul>
+        </section>
+      </div>
+
+      <section class="card">
+        <div class="section-title">Live Orders</div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Table</th>
+              <th>Status</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in active_orders %}
+            <tr>
+              <td>#{{ order.id }}</td>
+              <td>{{ order.table.table_number }}</td>
+              <td>
+                {% if order.status == 'preparing' %}
+                <span class="badge badge-pending">Preparing</span>
+                {% elif order.status == 'ready' %}
+                <span class="badge badge-active">Ready</span>
+                {% elif order.status == 'served' %}
+                <span class="badge badge-active">Served</span>
+                {% else %}
+                <span class="badge badge-warn">{{ order.status|title }}</span>
+                {% endif %}
+              </td>
+              <td class="muted">
+                {% for item in order.items.all %}
+                {{ item.quantity }}× {{ item.menu_item.name }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                —
+                {% endfor %}
+              </td>
+              <td>₹ {{ order.total_price }}</td>
+              <td class="muted">{{ order.created_at|date:'H:i' }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="6" class="muted">No active orders.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+
+      <p class="muted" style="margin-top: 1.5rem">
+        For full CRUD management use the
+        <a href="/admin/" target="_blank">Django admin</a>.
+      </p>
+    </main>
+  </body>
+</html>

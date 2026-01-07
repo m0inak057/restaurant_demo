@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Jalpaiguri Cafe · Kadamtala{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=General+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "General Sans", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="min-h-full bg-slate-950 text-slate-100">
+    <div
+      class="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(248,250,252,0.08),transparent_55%),radial-gradient(circle_at_bottom,_rgba(56,189,248,0.12),transparent_55%)]"
+    ></div>
+    <header class="border-b border-white/5 bg-slate-950/70 backdrop-blur-xl">
+      <nav
+        class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6"
+      >
+        <a href="/" class="flex items-center gap-2">
+          <span
+            class="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-400/40"
+          >
+            <span class="text-lg">🍽️</span>
+          </span>
+          <div>
+            <div class="text-sm font-semibold tracking-tight">
+              Jalpaiguri Cafe
+            </div>
+            <div class="text-[11px] text-slate-400">
+              Kadamtala · Jalpaiguri
+            </div>
+          </div>
+        </a>
+        <div class="hidden items-center gap-6 text-sm md:flex">
+          <a href="/" class="hover:text-emerald-400">Home</a>
+          <a href="/menu/" class="hover:text-emerald-400">Menu</a>
+          <a href="/order/?table=1" class="hover:text-emerald-400">Dine-in</a>
+          <a href="/admin/dashboard/" class="hover:text-sky-400">Dashboard</a>
+        </div>
+        <div class="flex items-center gap-2 text-xs md:text-sm">
+          <span class="hidden text-slate-400 md:inline">Scan &amp; order</span>
+          <span
+            class="inline-flex items-center gap-1 rounded-full border border-emerald-400/40 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-300 shadow-sm shadow-emerald-500/20"
+          >
+            <span class="text-xs">●</span> Real-time kitchen
+          </span>
+        </div>
+      </nav>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 pb-16 pt-6 md:px-6 md:pt-10">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="border-t border-white/5 bg-slate-950/70 py-4">
+      <div
+        class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 text-[11px] text-slate-500 md:flex-row md:px-6"
+      >
+        <p>© {{ now|default:2026 }} Jalpaiguri Cafe · Kadamtala, Jalpaiguri.</p>
+        <div class="flex items-center gap-3">
+          <p>Designed for smart dine-in · QR ordering · live KDS.</p>
+          <a
+            href="/staff/login/"
+            class="inline-flex items-center gap-1 rounded-full border border-slate-600/70 bg-slate-900/80 px-3 py-1.5 text-[11px] font-medium text-slate-100 hover:border-emerald-400/70"
+          >
+            <span class="text-xs">🔐</span>
+            Staff login
+          </a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
